@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/easion.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Mediflow</title>
+</head>
+
+<body>
+<% data.forEach((data) => { %>
+<form action="/edit/:id" method="POST">
+	<!-- Date of Admission -->
+	<div class="form-group">
+		<label for="dateOfAdmission">date</label>
+		<input type="date" class="form-control" id="date" name="date" value="<%= data.date %>" required>
+	</div>
+
+	<!-- Name -->
+	<div class="form-group">
+		<label for="name">name</label>
+		<input type="text" class="form-control" id="name" name="name" value="<%= data.name %>" required>
+	</div>
+
+	<!-- Age -->
+	<div class="form-group">
+		<label for="age">age</label>
+		<input type="number" class="form-control" id="age" name="age" value="<%= data.age %>" required>
+	</div>
+
+	<!-- Gender -->
+	<div class="form-group">
+		<label for="gender">gender</label>
+		<select class="form-control" id="gender" name="gender" value="<%= data.gender %>" required>
+			<option value="male">Male</option>
+			<option value="female">Female</option>
+			<option value="other">Other</option>
+		</select>
+	</div>
+
+	<!-- Contact Information -->
+	<div class="form-group">
+		<label for="contact">contact</label>
+		<input type="text" class="form-control" id="contact" name="contact" value="<%= data.contact %>" required>
+	</div>
+
+	<!-- Disease Information -->
+	<div class="form-group">
+		<label for="disease">disease</label>
+		<input type="text" class="form-control" id="disease" name="disease" value="<%= data.disease %>" required></input>
+	</div>
+
+	<!-- Doctor Information -->
+	<div class="form-group">
+		<label for="doctor">doctor</label>
+		<input type="text" class="form-control" id="doctor" name="doctor" value="<%= data.doctor %>" required>
+	</div>
+	<div class="modal-footer">
+		<a href="/close">
+			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+		</a>
+			<button type="submit" class="btn btn-primary">Submit</button>
+	</div>
+</form>
+<% }); %>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="../js/easion.js"></script>
+</body>
+
+</html>
