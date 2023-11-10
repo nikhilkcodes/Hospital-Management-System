@@ -7,6 +7,7 @@ const user = require('./models/userModel');
 require('dotenv').config();
 const patient = require('./controller/patient');
 const doctor = require('./controller/doctor');
+const appointment = require('./controller/appointment');
 const { log } = require('console');
 
 const port = process.env.PORT;
@@ -30,7 +31,6 @@ app.post('/login', (req, res) => {
 			return res.redirect('/');
 		}
 		if (result.rows.length === 1) {
-			// Render the "dashboard.ejs" view
 			res.render('home', { /* any data you want to pass to the view */ });
 		} else {
 			return res.redirect('/');
@@ -71,15 +71,13 @@ app.get('/doctor/edit/:id', async (req, res) => {
 });
 //update doctor
 app.post('/doctor/edit/:id', async (req, res) => {
-	const data = req.body;
-	const id = req.params.id; // Get the 'id' from the URL parameters
-	console.log(data);
-	console.log(id);
+	const id = req.params.id;
+	const updatedData = req.body;
 	try {
-		await doctor.updateDoctor(data, id); // Pass the 'id' to the updateDoctor function
+		await doctor.updateDoctor(id, updatedData);
 		res.redirect('/doctor');
 	} catch (error) {
-		console.log('Error updating patient:', error);
+		console.log('Error updating doctor:', error);
 		res.status(500).send('Internal Server Error');
 	}
 });
@@ -95,7 +93,7 @@ app.get('/doctor/delete/:id', async (req, res) => {
 		await doctor.deleteDoctor(id);
 		res.redirect('/doctor');
 	} catch (error) {
-		console.error('Error deleting patient:', error);
+		console.error('Error deleting Doctor:', error);
 		res.status(500).send('Internal Server Error');
 	}
 })
@@ -127,12 +125,10 @@ app.get('/close', (req, res) => {
 })
 
 app.post('/edit/:id', async (req, res) => {
-	//const id = parseInt(req.params.id, 10);
-	//console.log(id);
-	const data = req.body;
-	console.log(data);
+	const id = req.params.id;
+	const updatedData = req.body;
 	try {
-		await patient.updatePatient(data);
+		await patient.updatePatient(id, updatedData);
 		res.redirect('/patient');
 	} catch (error) {
 		console.log('Error updating patient:', error);
@@ -151,6 +147,51 @@ app.get('/delete/:id', async (req, res) => {
 		res.status(500).send('Internal Server Error'); // Handle the error gracefully
 	}
 });
+
+/** Appointment ops */
+// retrieve all appointments
+app.get('/appointment', async (req, res) => {
+	const data = await appointment.getAllAppointment();
+	res.render('appointment', { data });
+});
+app.post('/appointment', async (req, res) => {
+	const appointmentData = req.body;
+	const id = await appointment.createAppointment(appointmentData);
+	res.redirect('/appointment');
+});
+
+app.get('/appointment/edit/:id', async (req, res) => {
+	const id = req.params.id;
+	console.log(id)
+	const data = await appointment.getAppointmentById(id);
+	res.render('editAppointment', { data });
+});
+//update doctor
+app.post('/appointment/edit/:id', async (req, res) => {
+	const id = req.params.id;
+	const updatedData = req.body;
+	try {
+		await appointment.updateAppointment(id, updatedData);
+		res.redirect('/appointment');
+	} catch (error) {
+		console.log('Error updating appointment:', error);
+		res.status(500).send('Internal Server Error');
+	}
+});
+
+app.get('/appointment/close', (req, res) => {
+	res.redirect('/appointment');
+});
+app.get('/appointment/delete/:id', async (req, res) => {
+	const id = req.params.id;
+	try {
+		await appointment.deleteAppointment(id);
+		res.redirect('/appointment');
+	} catch (error) {
+		console.error('Error deleting appointment:', error);
+		res.status(500).send('Internal Server Error');
+	}
+})
 
 
 app.listen(port, () => {

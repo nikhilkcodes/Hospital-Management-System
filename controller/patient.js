@@ -36,12 +36,12 @@ const getPatientById = async (id) => {
 }
 
 // Update a patient
-const updatePatient = async (updatedData) => {
+const updatePatient = async (id, updatedData) => {
 	const { date, name, age, gender, contact, disease, doctor } = updatedData;
 	const query = `
     UPDATE patient
     SET date = $1, name = $2, age = $3, gender = $4, contact = $5, disease = $6, doctor = $7`; // You can keep the WHERE condition if you want to update other columns based on the 'id'.
-	const values = [date, name, age, gender, contact, disease, doctor]; // Include 'id' at the end of the values array.
+	const values = [id, date, name, age, gender, contact, disease, doctor]; // Include 'id' at the end of the values array.
 	await pool.query(query, values);
 };
 

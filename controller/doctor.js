@@ -35,17 +35,15 @@ const getDoctorById = async (id) => {
 	}
 }
 
-const updateDoctor = async (updatedData) => {
-	const { id, name, specialization, contact, appointment } = updatedData;
+const updateDoctor = async (id, updatedData) => {
+	const { name, specialization, contact, appointment } = updatedData;
 	const query = `
-    UPDATE doctor
-    SET name = $2, specialization = $3, contact = $4, appointment = $5
-    WHERE id = $1`;
-	const values = [id, name, specialization, contact, appointment]; // Correct order of values
+		UPDATE doctor
+		SET name = $2, specialization = $3, contact = $4, appointment = $5
+		WHERE id = $1`;
+	const values = [id, name, specialization, contact, appointment];
 	await pool.query(query, values);
 };
-
-
 
 const deleteDoctor = async (id) => {
 	const deleteQuery = 'DELETE FROM doctor WHERE id = $1';
