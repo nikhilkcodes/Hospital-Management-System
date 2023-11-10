@@ -1,0 +1,39 @@
+<%- include('header') %>
+<% data.forEach((doctor) => { %>
+<form action="/doctor/edit/<%= doctor.id %>" method="POST">
+	<!-- Name -->
+	<div class="form-group">
+		<label for="name">Name:</label>
+		<input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>
+	</div>
+
+	<!-- Specialization -->
+	<div class="form-group">
+		<label for="specialization">Specialization:</label>
+		<input type="text" class="form-control" id="specialization" name="specialization" placeholder="Enter your specialization" required>
+	</div>
+
+	<!-- Contact Information -->
+	<div class="form-group">
+		<label for="contact">Contact:</label>
+		<input type="text" class="form-control" id="contact" name="contact" placeholder="Enter your contact information" required>
+	</div>
+
+	<!-- Appointment Information -->
+	<div class="form-group">
+		<label for="appointment">Appointment Type</label>
+		<textarea class="form-control" id="appointment" name="appointment" placeholder="Enter appointment details" required></textarea>
+	</div>
+	<div class="modal-footer">
+		<a href="/doctor/close">
+		<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+		</a>
+		<button type="submit" class="btn btn-primary">Submit</button>
+		</div>
+	</body>
+</form>
+<% }); %>
+
+<script src="../js/easion.js"></script>
+</html>
+

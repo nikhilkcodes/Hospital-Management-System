@@ -6,6 +6,7 @@ const pg = require('pg');
 const user = require('./models/userModel');
 require('dotenv').config();
 const patient = require('./controller/patient');
+const doctor = require('./controller/doctor');
 const { log } = require('console');
 
 const port = process.env.PORT;
@@ -16,7 +17,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
 
 app.get('/', (req, res) => {
 	res.render('login');
@@ -40,12 +40,10 @@ app.post('/login', (req, res) => {
 
 app.post('/signup', (req, res) => {
 	const { email, newPassword, confirmPassword } = req.body;
-
 	if (newPassword !== confirmPassword) {
 		// Use res.send() to send a message to the client
 		return res.send('New and old passwords do not match');
 	}
-
 	user.createUser(email, newPassword, (err, result) => {
 		if (err) {
 			return res.redirect('/');
@@ -53,7 +51,56 @@ app.post('/signup', (req, res) => {
 		res.redirect('/');
 	});
 });
+/**Doctors ops*/
+// retrieve all doctors
+app.get('/doctor', async (req, res) => {
+	const data = await doctor.getAlldoctors();
+	res.render('doctor', { data });
+});
+app.post('/doctor', async (req, res) => {
+	const doctorData = req.body;
+	const id = await doctor.createDoctor(doctorData);
+	res.redirect('/doctor');
+});
 
+app.get('/doctor/edit/:id', async (req, res) => {
+	const id = req.params.id;
+	//console.log(id);
+	const data = await doctor.getDoctorById(id);
+	res.render('editDoctor', { data });
+});
+//update doctor
+app.post('/doctor/edit/:id', async (req, res) => {
+	const data = req.body;
+	const id = req.params.id; // Get the 'id' from the URL parameters
+	console.log(data);
+	console.log(id);
+	try {
+		await doctor.updateDoctor(data, id); // Pass the 'id' to the updateDoctor function
+		res.redirect('/doctor');
+	} catch (error) {
+		console.log('Error updating patient:', error);
+		res.status(500).send('Internal Server Error');
+	}
+});
+
+app.get('/doctor/close', (req, res) => {
+	res.redirect('/doctor');
+});
+
+
+app.get('/doctor/delete/:id', async (req, res) => {
+	const id = req.params.id;
+	try {
+		await doctor.deleteDoctor(id);
+		res.redirect('/doctor');
+	} catch (error) {
+		console.error('Error deleting patient:', error);
+		res.status(500).send('Internal Server Error');
+	}
+})
+
+/** patients ops */
 // Retrieve all patients
 app.get('/patient', async (req, res) => {
 	const data = await patient.getAllPatients();

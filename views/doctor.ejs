@@ -1,19 +1,4 @@
-<!doctype html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-    integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet" />
-    <link rel="stylesheet" href="../css/easion.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <title>Mediflow</title>
-</head>
+<%- include('header') %>
 
 <body>
     <div class="dash">
@@ -26,10 +11,10 @@
             </header>
             <ul class="list-group list-group-flush"></ul>
             <nav class="dash-nav-list">
-                <a href="index.html" class="dash-nav-item">
+                <a href="/doctor" class="dash-nav-item">
                     <i class="fa-solid fa-stethoscope" style="color: #ffffff;"></i>Doctors</a>
                 <div class="dash-nav-dropdown">
-                    <a href="#!" class="dash-nav-item">
+                    <a href="/patient" class="dash-nav-item">
                         <i class="fa-solid fa-user" style="color: #ffffff;"></i>Patients                    </a>
                 </div>
                 <div class="dash-nav-dropdown ">
@@ -110,35 +95,35 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form>
+                                <form action="/doctor" method="POST">
                                     <!-- Name -->
                                     <div class="form-group">
                                         <label for="name">Name:</label>
-                                        <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
+                                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>
                                     </div>
 
                                     <!-- Specialization -->
                                     <div class="form-group">
                                         <label for="specialization">Specialization:</label>
-                                        <input type="text" class="form-control" id="specialization" placeholder="Enter your specialization" required>
+                                        <input type="text" class="form-control" id="specialization" name="specialization" placeholder="Enter your specialization" required>
                                     </div>
 
                                     <!-- Contact Information -->
                                     <div class="form-group">
                                         <label for="contact">Contact:</label>
-                                        <input type="text" class="form-control" id="contact" placeholder="Enter your contact information" required>
+                                        <input type="text" class="form-control" id="contact" name="contact" placeholder="Enter your contact information" required>
                                     </div>
 
                                     <!-- Appointment Information -->
                                     <div class="form-group">
                                         <label for="appointment">Appointment Type</label>
-                                        <textarea class="form-control" id="appointment" placeholder="Enter appointment details" required></textarea>
+                                        <textarea class="form-control" id="appointment" name="appointment" placeholder="Enter appointment details" required></textarea>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
                                     </div>
                                 </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Submit</button>
                             </div>
                         </div>
                     </div>
@@ -158,19 +143,26 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<th scope="row">1</th>
-							<td>Bhupendra Jogi</td>
-							<td>Mbbs</td>
-							<td>12345</td>
-							<td>Routin checkup</td>
-							<td>
-								<div class="btn-group" role="group" aria-label="Basic mixed styles example">
-									<button type="button" class="btn btn-primary">Edit</button>
-									<button type="button" class="btn btn-danger">Delete</button>
-								</div>
-							</td>
-						</tr>
+						<% data.forEach((doctor) => { %>
+                            <tr>
+                              <th scope="row"><%= doctor.id %></th>
+                              <td><%= doctor.name %></td>
+                              <td><%= doctor.specialization %></td>
+                              <td><%= doctor.contact %></td>
+                              <td><%= doctor.appointment %></td>
+                              <td>
+                                <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                  <form action="/doctor/edit/<%= doctor.id %>" method="GET">
+                                    <button type="submit" class="btn btn-primary">Edit</button>
+                                  </form>
+                                  <form action="/doctor/delete/<%= doctor.id %>" method="GET">
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                  </form>
+                                </div>
+                              </td>
+                            </tr>
+                          <% }); %>
+
 					</tbody>
 				</table>
 			</div>
@@ -179,10 +171,5 @@
             </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="../js/easion.js"></script>
-</body>
 
-</html>
+<%- include('footer') %>

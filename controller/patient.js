@@ -1,13 +1,4 @@
-const { Pool } = require('pg');
-require('dotenv').config();
-const pool = new Pool({
-	user: process.env.DB_USER,
-	host: process.env.DB_HOST,
-	database: process.env.DB_NAME,
-	password: process.env.DB_PASSWORD,
-	port: process.env.DB_PORT,
-});
-
+const pool = require('./pool')
 // Create a new patient
 const createPatient = async (patientData) => {
 	const { date, name, age, gender, contact, disease, doctor } = patientData;
