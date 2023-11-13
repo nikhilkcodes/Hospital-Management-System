@@ -94,8 +94,8 @@ CREATE TABLE IF NOT EXISTS public.users
 ```
 ### 🗝️ ERD model of database :
 
+![hospital_management_erd](https://github.com/nikhilkcodes/Hospital-Management-System/assets/86142267/5bc044c2-025b-4048-85f5-29557697741b)
 
-![hospital_management_erd](https://github.com/nikhilkcodes/Hospital-Management-System/assets/86142267/a69bd2d4-1fc8-408c-8522-c2baf76cfb88)
 
 ### :test_tube: Running Tests
 
