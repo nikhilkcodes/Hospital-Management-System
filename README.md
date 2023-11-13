@@ -52,8 +52,6 @@ npm init
 ## :toolbox: sql queries to create tables :
 ## Database setup
 
-### 1. Appointment Table
-
 ```sql
 CREATE TABLE IF NOT EXISTS public.appointment
 (
