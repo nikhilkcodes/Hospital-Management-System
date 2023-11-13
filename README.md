@@ -91,8 +91,7 @@ CREATE TABLE IF NOT EXISTS public.users
     password VARCHAR(255) NOT NULL,
     CONSTRAINT users_email_key UNIQUE (email)
 );
-
-
+```
 ### :test_tube: Running Tests
 
 Node test command
