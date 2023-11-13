@@ -256,9 +256,6 @@ app.get('/delete/:id', async (req, res) => {
 /** Appointment ops */
 // retrieve all appointments
 app.get('/appointment', async (req, res) => {
-	if (!req.isAuthenticated()) {
-		return res.redirect('/');
-	}
 	const data = await appointment.getAllAppointment();
 	const totalAppointment = data.length;
 	res.render('appointment', { data, totalAppointment });
@@ -271,7 +268,7 @@ app.post('/appointment', async (req, res) => {
 
 app.get('/appointment/edit/:id', async (req, res) => {
 	const id = req.params.id;
-	console.log(id)
+	//console.log(id)
 	const data = await appointment.getAppointmentById(id);
 	res.render('editAppointment', { data });
 });

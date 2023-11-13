@@ -2,7 +2,7 @@
 
 <body>
 <% data.forEach((data) => { %>
-<form action="/edit/:id" method="POST">
+<form action="/edit/<%= data.id%>" method="POST">
 	<!-- Date of Admission -->
 	<div class="form-group">
 		<label for="dateOfAdmission">date</label>

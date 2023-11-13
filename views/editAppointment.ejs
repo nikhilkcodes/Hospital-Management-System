@@ -1,7 +1,7 @@
 <%- include('header') %>
 <body>
 					<% data.forEach((appointment) => { %>
-						<form action="/appointment/edit/:id" method="post">
+						<form action="/appointment/edit/<%= appointment.id %>" method="post">
 							<div class="form-group">
 								<label for="patient_id">Patient ID:</label>
 								<input type="text" class="form-control" name="patient_id" id="patient_id" required>
