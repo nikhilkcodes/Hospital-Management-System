@@ -28,7 +28,13 @@
 
 ### :key: Environment Variables
 To run this project, you will need to add the following environment variables to your .env file
-`PORT=3000 DB_USER=postgres DB_HOST=localhost DB_NAME=hospital-management-system DB_PASSWORD=your_db_password DB_PORT=5432 SECRET_KEY=your_secret_key`
+`PORT=3000 
+DB_USER=postgres
+DB_HOST=localhost 
+DB_NAME=hospital-management-system 
+DB_PASSWORD=your_db_password
+DB_PORT=5432
+SECRET_KEY=your_secret_key`
 
 
 
