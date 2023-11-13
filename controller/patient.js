@@ -40,8 +40,9 @@ const updatePatient = async (id, updatedData) => {
 	const { date, name, age, gender, contact, disease, doctor } = updatedData;
 	const query = `
     UPDATE patient
-    SET date = $1, name = $2, age = $3, gender = $4, contact = $5, disease = $6, doctor = $7`; // You can keep the WHERE condition if you want to update other columns based on the 'id'.
-	const values = [id, date, name, age, gender, contact, disease, doctor]; // Include 'id' at the end of the values array.
+    SET date = $2, name = $3, age = $4, gender = $5, contact = $6, disease = $7, doctor = $8
+	WHERE id = $1`;
+	const values = [id, date, name, age, gender, contact, disease, doctor];
 	await pool.query(query, values);
 };
 

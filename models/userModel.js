@@ -1,32 +1,25 @@
-const { Pool } = require('pg');
-require('dotenv').config();
 const bcrypt = require('bcrypt');
-const pg = require('pg');
+const pool = require('../controller/pool');
 
-const pool = new pg.Pool({
-	user: process.env.DB_USER,
-	host: process.env.DB_HOST,
-	database: process.env.DB_NAME,
-	password: process.env.DB_PASSWORD,
-	port: process.env.DB_PORT,
-});
+async function createUser(email, password) {
+	const hashedPassword = await bcrypt.hash(password, 10);
+	const result = await pool.query('INSERT INTO users (email, password) VALUES ($1, $2) RETURNING *', [email, hashedPassword]);
+	return result.rows[0];
+}
 
-const createUser = (email, password, callback) => {
-	bcrypt.hash(password, 10, (err, hash) => {
-		if (err) {
-			return callback(err);
-		}
-		pool.query('INSERT INTO users (email, password) VALUES ($1, $2)', [email, hash], (error, results) => {
-			callback(error, results);
-		});
-	});
+async function getUserByEmail(email) {
+	const result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+	console.log(result);
+	return result.rows[0];
+}
+
+async function getUserById(id) {
+	const result = await pool.query('SELECT * FROM users WHERE id = $1', [id]);
+	return result.rows[0];
+}
+
+module.exports = {
+	createUser,
+	getUserByEmail,
+	getUserById,
 };
-
-const findUser = (email, password, callback) => {
-	pool.query('SELECT * FROM users WHERE email = $1 AND password = $2', [email, password], (error, results) => {
-		callback(error, results);
-	});
-};
-
-
-module.exports = { createUser, findUser };

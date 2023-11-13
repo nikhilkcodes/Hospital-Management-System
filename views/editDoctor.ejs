@@ -1,4 +1,5 @@
 <%- include('header') %>
+<body>
 <% data.forEach((doctor) => { %>
 <form action="/doctor/edit/<%= doctor.id %>" method="POST">
 	<!-- Name -->
@@ -30,10 +31,7 @@
 		</a>
 		<button type="submit" class="btn btn-primary">Submit</button>
 		</div>
-	</body>
 </form>
 <% }); %>
 
-<script src="../js/easion.js"></script>
-</html>
-
+<%- include('footer') %>
