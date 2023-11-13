@@ -256,6 +256,9 @@ app.get('/delete/:id', async (req, res) => {
 /** Appointment ops */
 // retrieve all appointments
 app.get('/appointment', async (req, res) => {
+	if (!req.isAuthenticated()) {
+		return res.redirect('/');
+	}
 	const data = await appointment.getAllAppointment();
 	const totalAppointment = data.length;
 	res.render('appointment', { data, totalAppointment });
