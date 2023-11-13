@@ -49,6 +49,49 @@ npm init
 ```
 - pg admin<a href="https://www.pgadmin.org/"> Here</a>
 
+### : toolbox: sql queries to create tables :
+## Database setup
+
+### 1. Appointment Table
+
+```sql
+CREATE TABLE IF NOT EXISTS public.appointment
+(
+    id SERIAL PRIMARY KEY,
+    patient_id INTEGER,
+    doctor_id INTEGER,
+    appointment_date DATE
+);
+
+CREATE TABLE IF NOT EXISTS public.doctor
+(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    specialization VARCHAR(255),
+    contact VARCHAR(255),
+    appointment VARCHAR(255)
+);
+
+CREATE TABLE IF NOT EXISTS public.patient
+(
+    id SERIAL PRIMARY KEY,
+    date DATE,
+    name VARCHAR(255) NOT NULL,
+    age INTEGER NOT NULL,
+    gender VARCHAR(10) NOT NULL,
+    contact VARCHAR(20) NOT NULL,
+    disease VARCHAR(255) NOT NULL,
+    doctor VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS public.users
+(
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    CONSTRAINT users_email_key UNIQUE (email)
+);
+
 
 ### :test_tube: Running Tests
 
