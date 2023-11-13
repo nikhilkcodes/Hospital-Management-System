@@ -49,7 +49,7 @@ npm init
 ```
 - pg admin<a href="https://www.pgadmin.org/"> Here</a>
 
-### : toolbox: sql queries to create tables :
+## :toolbox: sql queries to create tables :
 ## Database setup
 
 ### 1. Appointment Table
@@ -92,6 +92,11 @@ CREATE TABLE IF NOT EXISTS public.users
     CONSTRAINT users_email_key UNIQUE (email)
 );
 ```
+### 🗝️ ERD model of database :
+
+
+![hospital_management_erd](https://github.com/nikhilkcodes/Hospital-Management-System/assets/86142267/a69bd2d4-1fc8-408c-8522-c2baf76cfb88)
+
 ### :test_tube: Running Tests
 
 Node test command
