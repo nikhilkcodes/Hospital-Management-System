@@ -12,6 +12,10 @@
 
 
 ## :star2: About the Project
+<details> <summary>User Flow</summary> <ul>
+  ![diagram-export-10-28-2023-6_28_12-AM](https://github.com/nikhilkcodes/Hospital-Management-System/assets/86142267/bead6572-9d81-4429-b42a-ab8bec05d224)
+
+    
 <details> <summary>Server</summary> <ul>
 <li><a href="">Express.js</a></li>
 </ul> </details>
